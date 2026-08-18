@@ -1,0 +1,37 @@
+---
+const steps = [
+  {
+    n: "1",
+    title: "We love these places",
+    body: "Eight years of vanlife. Thousands of nights found through park4night — farms, forest tracks, harbour walls, quiet lay-bys.",
+  },
+  {
+    n: "2",
+    title: "Too many spots are getting trashed",
+    body: "Toilet paper in the bushes. Bottles in the fire pit. Hosts and councils close places when travellers leave a mess.",
+  },
+  {
+    n: "3",
+    title: "Leave it cleaner than you found it",
+    body: "A bag, a shovel, five extra minutes. That is how we keep the map open — for us, and for the next van.",
+  },
+];
+---
+
+<section class="bg-white" aria-label="Why clean4park exists">
+  <div class="mx-auto grid max-w-6xl gap-0 px-4 sm:px-6 md:grid-cols-3 md:gap-8">
+    {
+      steps.map((step) => (
+        <article class="flex items-center gap-5 border-b border-fog py-8 md:flex-col md:items-center md:border-b-0 md:py-14 md:text-center">
+          <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-mint text-lg font-extrabold text-navy md:h-14 md:w-14 md:text-xl">
+            {step.n}
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-navy">{step.title}</h2>
+            <p class="mt-2 text-[15px] leading-relaxed text-muted">{step.body}</p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
