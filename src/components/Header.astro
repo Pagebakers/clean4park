@@ -1,0 +1,46 @@
+---
+import { INSTAGRAM_PROFILE_URL } from "../data/instagram";
+import InstagramIcon from "./InstagramIcon.astro";
+import Logo from "./Logo.astro";
+
+const links = [
+  { href: "#story", label: "Our story" },
+  { href: "#gear", label: "Cleaning gear" },
+  { href: "#instagram", label: "Instagram" },
+  { href: "#share", label: "Share" },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-fog/80 bg-white/90 backdrop-blur-md">
+  <div class="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-4 sm:px-6">
+    <a href="/" class="text-[1.35rem]" aria-label="clean4park home">
+      <Logo />
+    </a>
+    <nav class="hidden items-center gap-8 text-[15px] font-medium text-navy md:flex" aria-label="Primary">
+      {
+        links.map((link) => (
+          <a class="transition-colors hover:text-blue" href={link.href}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <a
+        href={INSTAGRAM_PROFILE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center rounded-full border border-fog p-2 text-navy transition hover:border-mint hover:text-blue"
+        aria-label="Follow @clean4park on Instagram"
+      >
+        <InstagramIcon />
+      </a>
+      <a
+        href="#gear"
+        class="inline-flex items-center rounded-full bg-mint px-4 py-2 text-sm font-semibold text-navy shadow-sm transition hover:bg-mint-dark"
+      >
+        Get the kit
+      </a>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,77 @@
+---
+import { INSTAGRAM_HASHTAG_URL, INSTAGRAM_PROFILE_URL } from "../data/instagram";
+import InstagramIcon from "./InstagramIcon.astro";
+import Logo from "./Logo.astro";
+---
+
+<footer class="bg-navy text-white">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <a href="/" class="inline-flex text-xl text-white" aria-label="clean4park home">
+        <span class="inline-flex items-center gap-2.5">
+          <Logo compact />
+          <span class="font-bold tracking-tight text-white">
+            clean<span class="text-mint">4</span>park
+          </span>
+        </span>
+      </a>
+      <p class="mt-4 max-w-md text-sm leading-relaxed text-white/70">
+        An independent vanlife project by Beatriz and Eelco. We love park4night — and we want those
+        places to stay open, quiet, and clean.
+      </p>
+      <a
+        href={INSTAGRAM_PROFILE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-mint hover:text-white"
+      >
+        <InstagramIcon class="h-4 w-4" />
+        Follow @clean4park
+      </a>
+    </div>
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wider text-mint">On this page</p>
+      <ul class="mt-4 space-y-2 text-sm text-white/80">
+        <li><a class="hover:text-mint" href="#story">Our story</a></li>
+        <li><a class="hover:text-mint" href="#gear">Cleaning gear</a></li>
+        <li><a class="hover:text-mint" href="#instagram">Instagram</a></li>
+        <li><a class="hover:text-mint" href="#share">Share #clean4park</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wider text-mint">Spread the word</p>
+      <ul class="mt-4 space-y-2 text-sm text-white/80">
+        <li>
+          <a class="hover:text-mint" href={INSTAGRAM_PROFILE_URL} target="_blank" rel="noopener noreferrer"
+            >Instagram @clean4park</a
+          >
+        </li>
+        <li>
+          <a class="hover:text-mint" href={INSTAGRAM_HASHTAG_URL} target="_blank" rel="noopener noreferrer"
+            >Instagram #clean4park</a
+          >
+        </li>
+        <li>
+          <a class="hover:text-mint" href="https://www.park4night.com/" target="_blank" rel="noopener noreferrer"
+            >park4night.com</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="mx-auto max-w-6xl space-y-3 px-4 py-6 text-xs leading-relaxed text-white/70 sm:px-6">
+      <p>
+        <strong class="font-semibold text-white/75">clean4park is not affiliated with park4night.</strong
+        >{" "}
+        This site is an independent awareness project. park4night is a trademark of its respective
+        owner. We are not endorsed by, sponsored by, or part of the park4night organisation.
+      </p>
+      <p>
+        Some product links are Amazon affiliate links. If you buy through them, we may earn a small
+        commission at no extra cost to you. That helps us keep this page online.
+      </p>
+      <p>© {new Date().getFullYear()} clean4park · Beatriz & Eelco</p>
+    </div>
+  </div>
+</footer>

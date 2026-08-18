@@ -1,0 +1,44 @@
+---
+interface Props {
+  class?: string;
+  compact?: boolean;
+}
+
+const { class: className = "", compact = false } = Astro.props;
+const gradientId = compact ? "c4p-grad-compact" : "c4p-grad";
+---
+
+<span class:list={["inline-flex items-center gap-2.5", className]}>
+  <svg
+    class="h-9 w-9 shrink-0"
+    viewBox="0 0 40 40"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+  >
+    <defs>
+      <linearGradient id={gradientId} x1="6" y1="34" x2="34" y2="6" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#165dd7"></stop>
+        <stop offset="1" stop-color="#27d9a1"></stop>
+      </linearGradient>
+    </defs>
+    <rect width="40" height="40" rx="12" fill={`url(#${gradientId})`}></rect>
+    <path
+      d="M10 24.5h2.2l1.4-4.2h7.3L22.2 24.5H28c1.2 0 2.2-1 2.2-2.2v-3.1c0-.7-.3-1.3-.9-1.7l-3.4-2.2H19.2c-.4-1.7-1.9-3-3.7-3H11.2C9.8 12.3 9 13.2 9 14.4v8c0 1.2 1 2.1 2.2 2.1h-1.2z"
+      fill="white"
+      fill-opacity="0.95"></path>
+    <circle cx="14.4" cy="26.8" r="1.9" fill="#1a1f39"></circle>
+    <circle cx="24.8" cy="26.8" r="1.9" fill="#1a1f39"></circle>
+    <path
+      d="M29.2 11.2c2.4 1.1 3.6 3.2 3.2 5.4-1.6-.3-3.1-1.2-4.1-2.6-.9 1.5-2.3 2.5-4 2.9.6-2.4 2.3-4.4 4.9-5.7z"
+      fill="white"
+      fill-opacity="0.95"></path>
+  </svg>
+  {
+    !compact && (
+      <span class="font-bold tracking-tight text-navy">
+        clean<span class="text-mint-dark">4</span>park
+      </span>
+    )
+  }
+</span>

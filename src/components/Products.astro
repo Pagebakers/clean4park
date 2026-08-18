@@ -1,0 +1,49 @@
+---
+import { products, amazonSearchUrl } from "../data/products";
+---
+
+<section id="gear" class="scroll-mt-24 bg-paper py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="max-w-2xl">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue">The kit</p>
+      <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
+        Cleaning gear for the road
+      </h2>
+      <p class="mt-4 text-[17px] leading-relaxed text-navy/70">
+        From foldable shovels and composting toilets to poop bags and trash collectors. These are
+        affiliate links to Amazon — if you pick something up, you help keep clean4park online, at no
+        extra cost.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        products.map((product) => (
+          <a
+            href={amazonSearchUrl(product.query)}
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            class="group flex flex-col rounded-2xl border border-fog bg-white p-6 shadow-(--shadow-card) transition hover:-translate-y-0.5 hover:border-mint/50 hover:shadow-(--shadow-lift)"
+          >
+            <span class="inline-flex w-fit rounded-full bg-fog px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-blue">
+              {product.category}
+            </span>
+            <h3 class="mt-2 text-lg font-bold text-navy group-hover:text-blue">{product.name}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-navy/70">{product.description}</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-mint-dark">
+              View on Amazon
+              <span aria-hidden="true" class="transition group-hover:translate-x-0.5">
+                →
+              </span>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="mt-8 text-sm text-muted">
+      As Amazon Associates we may earn from qualifying purchases. Prices and availability are set by
+      Amazon.
+    </p>
+  </div>
+</section>

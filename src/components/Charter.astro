@@ -1,0 +1,48 @@
+---
+const promises = [
+  {
+    title: "Pack everything out",
+    body: "If it came in the van, it leaves in the van — including food waste and bottle caps.",
+  },
+  {
+    title: "No wild toilets",
+    body: "Use a toilet, a bag, or bury it properly far from water. Never leave paper on the ground.",
+  },
+  {
+    title: "Water stays at dump points",
+    body: "Grey and black water go to service areas, not under the vehicle or into a ditch.",
+  },
+  {
+    title: "Leave it better",
+    body: "Take five minutes. Pick up what the last visitor missed. The next van will thank you.",
+  },
+];
+---
+
+<section class="bg-fog/60 py-16 sm:py-20">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="max-w-2xl">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue">The clean4park promise</p>
+      <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-navy">
+        A small charter for every night
+      </h2>
+    </div>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2">
+      {
+        promises.map((item, index) => (
+          <article class="rounded-2xl bg-white p-6 shadow-(--shadow-card)">
+            <div class="flex items-start gap-4">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-mint text-sm font-extrabold text-navy">
+                {index + 1}
+              </span>
+              <div>
+                <h3 class="font-bold text-navy">{item.title}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-navy/70">{item.body}</p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

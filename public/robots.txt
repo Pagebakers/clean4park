@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://clean4park.com/sitemap.xml

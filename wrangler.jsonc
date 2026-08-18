@@ -1,0 +1,11 @@
+{
+  "name": "clean4park",
+  "main": "src/cloudflare-worker.ts",
+  "compatibility_date": "2026-08-18",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page"
+  }
+}
