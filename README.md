@@ -1,6 +1,6 @@
 # clean4park
 
-Landing page for [clean4park.com](https://clean4park.com) — an independent vanlife project by Eelco and Beatriz. Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com), ready to deploy on Cloudflare.
+Landing page for [clean4park.com](https://clean4park.com) — an independent vanlife project by Beatriz and Eelco. Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com), ready to deploy on Cloudflare.
 
 ## Local development
 
@@ -37,7 +37,15 @@ npx wrangler login
 npm run deploy
 ```
 
-`wrangler.jsonc` points Workers at the `dist` folder. After the first deploy, add `clean4park.com` as a custom domain on the Worker.
+`wrangler.jsonc` serves the `dist` folder and a Worker that powers `/api/instagram.json`. After the first deploy, add `clean4park.com` as a custom domain on the Worker.
+
+## Instagram feed
+
+The community section loads public posts that mention [@clean4park](https://www.instagram.com/clean4park/) or use `#clean4park`.
+
+- Build time and `/api/instagram.json` fetch the public Instagram profile and hashtag.
+- On Cloudflare, the Worker (or Pages Function) refreshes that feed live.
+- Optional official Graph API: set `INSTAGRAM_ACCESS_TOKEN` and `INSTAGRAM_USER_ID` if `@clean4park` is converted to a professional account. That also picks up tagged/mentioned media more reliably.
 
 ## Amazon affiliate links
 

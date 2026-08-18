@@ -1,5 +1,6 @@
 ---
-
+import { INSTAGRAM_HASHTAG_URL, INSTAGRAM_PROFILE_URL } from "../data/instagram";
+import InstagramIcon from "./InstagramIcon.astro";
 ---
 
 <section id="share" class="scroll-mt-24 bg-navy py-20 text-white sm:py-24">
@@ -12,7 +13,14 @@
         </h2>
         <p class="mt-4 text-[17px] leading-relaxed text-white/75">
           Awareness only works if other travellers see it. When you leave a place cleaner — or when
-          you simply want to remind the next van — share clean4park.
+          you simply want to remind the next van — tag{" "}
+          <a
+            class="font-semibold text-mint hover:text-white"
+            href={INSTAGRAM_PROFILE_URL}
+            target="_blank"
+            rel="noopener noreferrer">@clean4park</a
+          >{" "}
+          or use #clean4park.
         </p>
 
         <div class="mt-8 grid gap-4 sm:grid-cols-2">
@@ -20,23 +28,41 @@
             <p class="text-xs font-semibold uppercase tracking-wider text-mint">On Instagram</p>
             <p class="mt-2 text-sm leading-relaxed text-white/80">
               Post a photo of a tidy pitch, a bag of collected litter, or a thank-you to a host.
-              Add <strong class="text-white">#clean4park</strong> and{" "}
-              <strong class="text-white">clean4park.com</strong> in the caption.
+              Tag <a
+                class="font-semibold text-white hover:text-mint"
+                href={INSTAGRAM_PROFILE_URL}
+                target="_blank"
+                rel="noopener noreferrer">@clean4park</a
+              >
+              or add <strong class="text-white">#clean4park</strong> and clean4park.com in the
+              caption.
             </p>
-            <a
-              class="mt-4 inline-flex text-sm font-semibold text-mint hover:text-white"
-              href="https://www.instagram.com/explore/tags/clean4park/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open #clean4park →
-            </a>
+            <div class="mt-4 flex flex-col gap-2">
+              <a
+                class="inline-flex items-center gap-2 text-sm font-semibold text-mint hover:text-white"
+                href={INSTAGRAM_PROFILE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <InstagramIcon class="h-4 w-4" />
+                Follow @clean4park →
+              </a>
+              <a
+                class="inline-flex text-sm font-semibold text-mint hover:text-white"
+                href={INSTAGRAM_HASHTAG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open #clean4park →
+              </a>
+            </div>
           </article>
           <article class="rounded-2xl bg-navy-soft p-5">
             <p class="text-xs font-semibold uppercase tracking-wider text-mint">On park4night</p>
             <p class="mt-2 text-sm leading-relaxed text-white/80">
               When you comment on a place, mention{" "}
-              <strong class="text-white">clean4park.com</strong> or{" "}
+              <strong class="text-white">clean4park.com</strong>,{" "}
+              <strong class="text-white">@clean4park</strong> or{" "}
               <strong class="text-white">#clean4park</strong>. A kind note travels further than a
               complaint.
             </p>

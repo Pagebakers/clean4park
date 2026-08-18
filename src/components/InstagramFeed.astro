@@ -1,0 +1,192 @@
+---
+import { INSTAGRAM_HASHTAG_URL, INSTAGRAM_PROFILE_URL } from "../data/instagram";
+import { fetchInstagramFeed, type InstagramFeed, type InstagramPost } from "../lib/instagram";
+import InstagramIcon from "./InstagramIcon.astro";
+
+let initial: InstagramFeed;
+try {
+  initial = await fetchInstagramFeed();
+} catch {
+  initial = {
+    username: "clean4park",
+    profileUrl: INSTAGRAM_PROFILE_URL,
+    biography: "Leave your parking cleaner than you found it.",
+    profilePic: "",
+    posts: [],
+    fetchedAt: new Date().toISOString(),
+  };
+}
+
+const sourceLabel = (source: InstagramPost["source"]) =>
+  source === "hashtag" ? "#clean4park" : "@clean4park";
+---
+
+<section id="instagram" class="scroll-mt-24 bg-paper py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div class="max-w-2xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue">On Instagram</p>
+        <h2 class="mt-3 text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">
+          Posts tagging @clean4park or #clean4park
+        </h2>
+        <p class="mt-4 text-[17px] leading-relaxed text-navy/70">
+          Follow{" "}
+          <a
+            class="font-semibold text-blue hover:text-navy"
+            href={INSTAGRAM_PROFILE_URL}
+            target="_blank"
+            rel="noopener noreferrer">@clean4park</a
+          >{" "}
+          and share a tidy pitch, a bag of collected litter, or a thank-you to a host. We load public
+          posts that mention the account or use the hashtag.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a
+          href={INSTAGRAM_PROFILE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-soft"
+        >
+          <InstagramIcon class="h-4 w-4" />
+          Follow @clean4park
+        </a>
+        <a
+          href={INSTAGRAM_HASHTAG_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center rounded-full border border-fog bg-white px-5 py-2.5 text-sm font-semibold text-navy transition hover:border-mint"
+        >
+          #clean4park
+        </a>
+      </div>
+    </div>
+
+    <div
+      id="instagram-feed"
+      class="mt-12"
+      data-feed={JSON.stringify(initial)}
+      data-src="/api/instagram.json"
+    >
+      <div class="instagram-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          initial.posts.map((post) => {
+            const caption = post.caption.replace(/\s+/g, " ").trim().slice(0, 110);
+            return (
+              <a
+                href={post.permalink}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group relative block overflow-hidden rounded-2xl bg-white shadow-(--shadow-card)"
+              >
+                <div class="aspect-square overflow-hidden">
+                  {post.thumbnail ? (
+                    <img
+                      src={post.thumbnail}
+                      alt={caption || `Instagram post by @${post.username}`}
+                      class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                      loading="lazy"
+                      referrerpolicy="no-referrer"
+                    />
+                  ) : (
+                    <div class="flex h-full w-full items-center justify-center bg-fog text-sm font-semibold text-navy/50">
+                      View on Instagram
+                    </div>
+                  )}
+                </div>
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/90 via-navy/50 to-transparent p-4 pt-16">
+                  <p class="text-xs font-semibold uppercase tracking-wider text-mint">
+                    {sourceLabel(post.source)}
+                  </p>
+                  <p class="mt-1 line-clamp-2 text-sm text-white/90">{caption || `@${post.username}`}</p>
+                </div>
+              </a>
+            );
+          })
+        }
+      </div>
+      <p class:list={["instagram-status mt-8 text-sm text-navy/65", initial.posts.length > 0 && "hidden"]}>
+        {
+          initial.posts.length > 0
+            ? ""
+            : "No public posts yet. Be the first — tag @clean4park or add #clean4park, then refresh this page."
+        }
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  type InstagramPost = {
+    id: string;
+    permalink: string;
+    thumbnail: string;
+    caption: string;
+    timestamp: number;
+    username: string;
+    isVideo: boolean;
+    source: "profile" | "hashtag" | "mention";
+  };
+
+  type InstagramFeed = {
+    posts: InstagramPost[];
+  };
+
+  const root = document.getElementById("instagram-feed");
+  if (root) {
+    const grid = root.querySelector<HTMLElement>(".instagram-grid");
+    const status = root.querySelector<HTMLElement>(".instagram-status");
+
+    const escapeHtml = (value: string) =>
+      value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+
+    const sourceLabel = (source: InstagramPost["source"]) =>
+      source === "hashtag" ? "#clean4park" : "@clean4park";
+
+    const render = (feed: InstagramFeed) => {
+      if (!grid || !status) return;
+
+      if (!feed.posts.length) {
+        grid.innerHTML = "";
+        status.classList.remove("hidden");
+        status.textContent =
+          "No public posts yet. Be the first — tag @clean4park or add #clean4park, then refresh this page.";
+        return;
+      }
+
+      status.classList.add("hidden");
+      grid.innerHTML = feed.posts
+        .map((post) => {
+          const caption = post.caption.replace(/\s+/g, " ").trim().slice(0, 110);
+          const image = post.thumbnail
+            ? `<img src="${escapeHtml(post.thumbnail)}" alt="${escapeHtml(caption || `Instagram post by @${post.username}`)}" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy" referrerpolicy="no-referrer" />`
+            : `<div class="flex h-full w-full items-center justify-center bg-fog text-sm font-semibold text-navy/50">View on Instagram</div>`;
+
+          return `<a href="${escapeHtml(post.permalink)}" target="_blank" rel="noopener noreferrer" class="group relative block overflow-hidden rounded-2xl bg-white shadow-(--shadow-card)">
+            <div class="aspect-square overflow-hidden">${image}</div>
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/90 via-navy/50 to-transparent p-4 pt-16">
+              <p class="text-xs font-semibold uppercase tracking-wider text-mint">${escapeHtml(sourceLabel(post.source))}</p>
+              <p class="mt-1 line-clamp-2 text-sm text-white/90">${escapeHtml(caption || `@${post.username}`)}</p>
+            </div>
+          </a>`;
+        })
+        .join("");
+    };
+
+    const src = root.dataset.src;
+    if (src) {
+      fetch(src)
+        .then((response) => (response.ok ? response.json() : null))
+        .then((feed: InstagramFeed | null) => {
+          if (feed?.posts) render(feed);
+        })
+        .catch(() => {
+          /* Keep the build-time snapshot if the live feed is unavailable. */
+        });
+    }
+  }
+</script>
